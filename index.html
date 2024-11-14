@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="./resources/ol.css">
+        <link rel="stylesheet" href="resources/fontawesome-all.min.css">
+        <link rel="stylesheet" type="text/css" href="resources/horsey.min.css">
+        <link rel="stylesheet" type="text/css" href="resources/ol3-search-layer.min.css">
+        <link href="resources/ol-geocoder.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./resources/ol-layerswitcher.css">
+        <link rel="stylesheet" href="./resources/qgis2web.css">
+        <style>
+          html, body {
+                background-color: #f4f4f9;
+                font-family: 'Arial', sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+
+            .header {
+                background-color: #37d9a0;
+                color: white;
+                text-align: center;
+                padding: 60px 15px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .header h1 {
+                margin: 0;
+                font-size: 36px;
+            }
+            .navbar {
+                background-color: #37d9a0;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        position: fixed; /* Membuat navbar tetap di atas */
+        top: 0; /* Menyelaraskan navbar ke atas */
+        width: 100%; /* Memastikan lebar navbar mengikuti lebar layar */
+        z-index: 1000; 
+            }
+
+            .navbar a {
+                color: white;
+                padding: 14px 20px;
+                text-align: center;
+                text-decoration: none;
+                display: block;
+                font-size: 18px;
+            }
+
+            .navbar a:hover {
+                background-color: #575757;
+            }
+
+            .description {
+                padding: 20px;
+                font-size: 16px;
+                line-height: 1.6;
+                background-color: #fff;
+                margin: 20px auto;
+                max-width: 800px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: justify;
+            }
+            .description2{
+                padding: 20px;
+                font-size: 16px;
+                line-height: 1.6;
+                background-color: #fff;
+                margin: 20px auto;
+                max-width: 800px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: justify;
+            }
+
+            .description h2 {
+                color: #333;
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            #map {
+                width: 100%;
+                height: 500px;
+                border: 2px solid #ddd;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                margin-top: 20px;
+            }
+            .description-image {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto 20px; /* Untuk menempatkan gambar di tengah dan memberikan jarak ke bawah */
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+            .map-container {
+                width: 80%;
+                margin: 30px auto;
+                padding: 15px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+            .about {
+                padding: 20px;
+                font-size: 16px;
+                line-height: 1.6;
+                background-color: #fff;
+                margin: 20px auto;
+                max-width: 800px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: justify;
+            }
+
+            .footer {
+                text-align: center;
+                padding: 10px;
+                font-size: 14px;
+                background-color: #37d9a0;
+                color: white;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .ol-control > * {
+                background-color: #f8f8f8!important;
+                color: #444444!important;
+                border-radius: 0px;
+            }
+
+            .ol-attribution a, .gcd-gl-input::placeholder, .search-layer-input-search::placeholder {
+                color: #444444!important;
+            }
+
+            .search-layer-input-search {
+                background-color: #f8f8f8!important;
+            }
+
+            .ol-control > :focus, .ol-control >:hover {
+                background-color: rgba(248, 248, 248, 0.7)!important;
+            } 
+
+            .ol-control {
+                background-color: rgba(255,255,255,.4) !important;
+                padding: 2px !important;
+            }
+        </style>
+
+       
+<title> Peta Sokawera, Banyumas</title>
+</head>
+<body>
+    <!-- Bagian Header -->
+    <div class="header">
+        <h1>Selamat Datang Di Desa Sokawera </h1>
+      
+    </div>
+
+    <!-- Bagian Navbar -->
+    <div class="navbar">
+        <a href="#deskripsi">Deskripsi</a>
+        <a href="#deskripsi2">Potensi</a>
+        <a href="#peta">Peta</a>
+        <a href="#tentang">Tentang</a>
+    </div>
+
+    <!-- Bagian Deskripsi Kelurahan -->
+    <div class="description" id="deskripsi">
+        <h2>Deskripsi Desa Sokawera</h2>
+        <img class="description-image" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEikE4YQPba6iSp3xY9k6nBId4mxteStAk4IaAS7_DUEbsPayac55fsrdctQJiP3XS2_1Dtqajpsn5YmZXoJ88uXc1cSdNCEw_9nSFyoMBnCaO0bQNeOcoag4BTlfvKyfts7cNulVAHIa1a7gM5CoVPz0-7LxnYlaY2X5z8PLRfdYE3KYXWg2kt_11g0/s1600/20220925_0946432220.jpg" alt="Gambar Kantor Kelurahan">
+        <p>Desa Sokawera terletak di Kecamatan Somagede, Kabupaten Banyumas, Jawa Tengah. Desa ini memiliki potensi alam, budaya, dan ekonomi yang cukup tinggi, terdiri dari tiga dusun utama: Dusun Kedungbekong, Dusun Bonjok, dan Dusun Sokawera Kulon. Desa ini terbagi menjadi enam Rukun Warga (RW) dan 29 Rukun Tetangga (RT), dengan jumlah penduduk sekitar 6.414 jiwa. Mayoritas penduduk bekerja di sektor pertanian dan usaha mikro, kecil, dan menengah (UMKM). Secara geografis, Desa Sokawera dikelilingi oleh sungai dan desa-desa lain yang strategis, seperti Sungai Serayu di sebelah utara dan Desa Somagede di timur. Lokasi desa ini memudahkan akses ke pusat administrasi dan perdagangan Kabupaten Banyumas</p>
+    </div>
+    <div class="description2" id="deskripsi2">
+        <h2>Potensi dan Kehidupan Sosial Desa Sokawera</h2>
+        <p>Desa Sokawera memiliki potensi ekonomi yang kuat, terutama di sektor pertanian dengan penghasil padi, jagung, dan produk pertanian lainnya. Selain itu, UMKM yang bergerak di bidang kerajinan tangan dan kuliner lokal seperti keripik pisang dan singkong menjadi daya tarik pasar lokal dan wisatawan. Desa ini juga memiliki berbagai fasilitas pendidikan dan kesehatan, seperti PAUD, sekolah dasar, serta poskesdes untuk layanan kesehatan dasar. Kehidupan sosial desa ini kaya dengan tradisi, seperti acara tahunan "Bersih Desa" dan kesenian tradisional. Karang Taruna dan PKK juga aktif dalam pemberdayaan masyarakat, khususnya kaum muda dan ibu-ibu, untuk meningkatkan kesejahteraan keluarga dan sosial. Desa Sokawera terus berupaya berkembang menjadi desa yang mandiri dan berdaya saing</p>
+    </div>
+        <h2>Peta Sokawera
+    <!-- Bagian Peta Interaktif dalam Box -->
+    <div class="map-container" id="peta">
+        <div id="map">
+            <div id="popup" class="ol-popup">
+                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                <div id="popup-content"></div>
+            </div>
+        </div>
+    </div>
+
+       <!-- Bagian Tentang Peta -->
+       <div class="about" id="tentang">
+        <h2>Tentang Peta</h2>
+        <p>Peta interaktif Desa Sokawera dirancang untuk memberikan informasi geografis yang lengkap dan mudah diakses, memungkinkan pengguna untuk menjelajahi berbagai fitur desa seperti batas wilayah, fasilitas umum (sekolah, tempat ibadah, kesehatan, pasar), serta lokasi pertanian dan tempat wisata. Dengan fitur pencarian lokasi dan popup yang memberikan informasi detail, peta ini mempermudah akses ke data penting, memfasilitasi perencanaan kegiatan, dan pengelolaan sumber daya alam. Selain itu, peta ini mendukung perencanaan pembangunan desa dengan memberikan gambaran jelas tentang tata letak wilayah dan fasilitas yang ada, membuatnya menjadi alat yang penting bagi warga dan pengunjung dalam menjelajahi Desa Sokawera secara efisien.</p>
+       </div>
+    <!-- Footer Dibuat oleh -->
+    <div class="footer">
+        <p> © 2024 || Peta Kelurahan Sokawera || Dibuat oleh: Tiya Utriani</p>
+    </div>
+    </div>
+        <script src="resources/qgis2web_expressions.js"></script>
+<script src="resources/proj4.js"></script>
+        <script>proj4.defs('EPSG:4326','+proj=longlat +datum=WGS84 +no_defs');</script>
+        <script src="./resources/functions.js"></script>
+        <script src="./resources/ol.js"></script>
+        <script src="resources/horsey.min.js"></script>
+        <script src="resources/ol3-search-layer.js"></script>
+        <script src="./resources/ol-layerswitcher.js"></script>
+        <script src="resources/ol-geocoder.js"></script>
+        <script src="layers/BatasRT_1.js"></script><script src="layers/Sawah_2.js"></script><script src="layers/ADMINISTRASIDESA_AR_25K_3.js"></script><script src="layers/Sokawera_poly_4.js"></script><script src="layers/Lapangan_5.js"></script><script src="layers/Jalan_6.js"></script><script src="layers/Perusahaan_7.js"></script><script src="layers/Sekolahan_8.js"></script><script src="layers/house_9.js"></script><script src="layers/Sungai_10.js"></script><script src="layers/Shop_11.js"></script><script src="layers/TempatMakan_12.js"></script><script src="layers/Bengkel_13.js"></script><script src="layers/Pemakaman_14.js"></script><script src="layers/Masjid_15.js"></script><script src="layers/Pemerintahan_16.js"></script><script src="layers/kesehatan_17.js"></script>
+        <script src="styles/BatasRT_1_style.js"></script><script src="styles/Sawah_2_style.js"></script><script src="styles/ADMINISTRASIDESA_AR_25K_3_style.js"></script><script src="styles/Sokawera_poly_4_style.js"></script><script src="styles/Lapangan_5_style.js"></script><script src="styles/Jalan_6_style.js"></script><script src="styles/Perusahaan_7_style.js"></script><script src="styles/Sekolahan_8_style.js"></script><script src="styles/house_9_style.js"></script><script src="styles/Sungai_10_style.js"></script><script src="styles/Shop_11_style.js"></script><script src="styles/TempatMakan_12_style.js"></script><script src="styles/Bengkel_13_style.js"></script><script src="styles/Pemakaman_14_style.js"></script><script src="styles/Masjid_15_style.js"></script><script src="styles/Pemerintahan_16_style.js"></script><script src="styles/kesehatan_17_style.js"></script>
+        <script src="./layers/layers.js" type="text/javascript"></script> 
+        <script src="./resources/Autolinker.min.js"></script>
+        <script src="./resources/qgis2web.js"></script>
+    </body>
+</html>
